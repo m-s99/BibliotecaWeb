@@ -19,12 +19,8 @@ namespace BibliotecaWeb.Models
         public DateTime FechaNacimiento { get; set; }
         public string Domicilio { get; set; } = null!;
         public double Telefono { get; set; }
-        public byte[]? Imagen { get; set; }
-        public int? UsuarioId { get; set; }
-        public DateTime? FechaHoraEliminacion { get; set; }
         public bool Eliminado { get; set; }
 
-        public virtual Usuario? Usuario { get; set; }
         public virtual ICollection<Prestamo> Prestamos { get; set; }
     }
 }

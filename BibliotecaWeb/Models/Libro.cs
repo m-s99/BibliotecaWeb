@@ -18,15 +18,11 @@ namespace BibliotecaWeb.Models
         public string Autor { get; set; } = null!;
         public string Editorial { get; set; } = null!;
         public bool Disponible { get; set; }
-        public byte[]? Imagen { get; set; }
         [DisplayName("Temática")]
         public int TematicaId { get; set; }
-        public int? UsuarioId { get; set; }
-        public DateTime? FechaHoraEliminacion { get; set; }
         public bool Eliminado { get; set; }
 
         public virtual Tematica? Tematica { get; set; }
-        public virtual Usuario? Usuario { get; set; }
         public virtual ICollection<Prestamo> Prestamos { get; set; }
     }
 }
