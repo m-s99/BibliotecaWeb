@@ -22,7 +22,7 @@ namespace BibliotecaWeb.Controllers
         // GET: Prestamos
         public async Task<IActionResult> Index()
         {
-            var smartsof_biblioContext = _context.Prestamos.Include(p => p.Libro).Include(p => p.Socio).Include(p => p.Usuario);
+            var smartsof_biblioContext = _context.Prestamos.Include(p => p.Libro).Include(p => p.Socio);
             return View(await smartsof_biblioContext.ToListAsync());
         }
 
@@ -37,7 +37,6 @@ namespace BibliotecaWeb.Controllers
             var prestamo = await _context.Prestamos
                 .Include(p => p.Libro)
                 .Include(p => p.Socio)
-                .Include(p => p.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prestamo == null)
             {
@@ -52,7 +51,6 @@ namespace BibliotecaWeb.Controllers
         {
             ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Id");
             ViewData["SocioId"] = new SelectList(_context.Socios, "Id", "Id");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id");
             return View();
         }
 
@@ -61,7 +59,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaRetiro,FechaEntrega,SocioId,IdLibro,LibroId,LibroDevuelto,UsuarioId,FechaHoraEliminacion,Eliminado")] Prestamo prestamo)
+        public async Task<IActionResult> Create([Bind("Id,FechaRetiro,FechaEntrega,SocioId,LibroId,LibroDevuelto,Eliminado")] Prestamo prestamo)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +69,6 @@ namespace BibliotecaWeb.Controllers
             }
             ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Id", prestamo.LibroId);
             ViewData["SocioId"] = new SelectList(_context.Socios, "Id", "Id", prestamo.SocioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", prestamo.UsuarioId);
             return View(prestamo);
         }
 
@@ -90,7 +87,6 @@ namespace BibliotecaWeb.Controllers
             }
             ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Id", prestamo.LibroId);
             ViewData["SocioId"] = new SelectList(_context.Socios, "Id", "Id", prestamo.SocioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", prestamo.UsuarioId);
             return View(prestamo);
         }
 
@@ -99,7 +95,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FechaRetiro,FechaEntrega,SocioId,IdLibro,LibroId,LibroDevuelto,UsuarioId,FechaHoraEliminacion,Eliminado")] Prestamo prestamo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FechaRetiro,FechaEntrega,SocioId,LibroId,LibroDevuelto,Eliminado")] Prestamo prestamo)
         {
             if (id != prestamo.Id)
             {
@@ -128,7 +124,6 @@ namespace BibliotecaWeb.Controllers
             }
             ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Id", prestamo.LibroId);
             ViewData["SocioId"] = new SelectList(_context.Socios, "Id", "Id", prestamo.SocioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", prestamo.UsuarioId);
             return View(prestamo);
         }
 
@@ -143,7 +138,6 @@ namespace BibliotecaWeb.Controllers
             var prestamo = await _context.Prestamos
                 .Include(p => p.Libro)
                 .Include(p => p.Socio)
-                .Include(p => p.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prestamo == null)
             {

@@ -22,7 +22,7 @@ namespace BibliotecaWeb.Controllers
         // GET: Tematicas
         public async Task<IActionResult> Index()
         {
-            var bibliotecaWebContext = _context.Tematicas.Include(t => t.Usuario);
+            var bibliotecaWebContext = _context.Tematicas;
             return View(await bibliotecaWebContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace BibliotecaWeb.Controllers
             }
 
             var tematica = await _context.Tematicas
-                .Include(t => t.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tematica == null)
             {
@@ -48,7 +47,6 @@ namespace BibliotecaWeb.Controllers
         // GET: Tematicas/Create
         public IActionResult Create()
         {
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id");
             return View();
         }
 
@@ -57,7 +55,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,UsuarioId,FechaHoraEliminacion,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Tematica tematica)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +63,6 @@ namespace BibliotecaWeb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", tematica.UsuarioId);
             return View(tematica);
         }
 
@@ -82,7 +79,6 @@ namespace BibliotecaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", tematica.UsuarioId);
             return View(tematica);
         }
 
@@ -91,7 +87,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,UsuarioId,FechaHoraEliminacion,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Tematica tematica)
         {
             if (id != tematica.Id)
             {
@@ -118,7 +114,6 @@ namespace BibliotecaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", tematica.UsuarioId);
             return View(tematica);
         }
 
@@ -131,7 +126,6 @@ namespace BibliotecaWeb.Controllers
             }
 
             var tematica = await _context.Tematicas
-                .Include(t => t.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tematica == null)
             {

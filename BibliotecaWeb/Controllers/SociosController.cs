@@ -22,7 +22,7 @@ namespace BibliotecaWeb.Controllers
         // GET: Socios
         public async Task<IActionResult> Index()
         {
-            var smartsof_biblioContext = _context.Socios.Include(s => s.Usuario);
+            var smartsof_biblioContext = _context.Socios;
             return View(await smartsof_biblioContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace BibliotecaWeb.Controllers
             }
 
             var socio = await _context.Socios
-                .Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (socio == null)
             {
@@ -48,7 +47,6 @@ namespace BibliotecaWeb.Controllers
         // GET: Socios/Create
         public IActionResult Create()
         {
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id");
             return View();
         }
 
@@ -57,7 +55,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Imagen,UsuarioId,FechaHoraEliminacion,Eliminado")] Socio socio)
+        public async Task<IActionResult> Create([Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Eliminado")] Socio socio)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +63,6 @@ namespace BibliotecaWeb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", socio.UsuarioId);
             return View(socio);
         }
 
@@ -82,7 +79,6 @@ namespace BibliotecaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", socio.UsuarioId);
             return View(socio);
         }
 
@@ -91,7 +87,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Imagen,UsuarioId,FechaHoraEliminacion,Eliminado")] Socio socio)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Eliminado")] Socio socio)
         {
             if (id != socio.Id)
             {
@@ -118,7 +114,6 @@ namespace BibliotecaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", socio.UsuarioId);
             return View(socio);
         }
 
@@ -131,7 +126,6 @@ namespace BibliotecaWeb.Controllers
             }
 
             var socio = await _context.Socios
-                .Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (socio == null)
             {

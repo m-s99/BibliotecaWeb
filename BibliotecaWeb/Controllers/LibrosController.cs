@@ -22,7 +22,7 @@ namespace BibliotecaWeb.Controllers
         // GET: Libros
         public async Task<IActionResult> Index()
         {
-            var smartsof_biblioContext = _context.Libros.Include(l => l.Tematica).Include(l => l.Usuario);
+            var smartsof_biblioContext = _context.Libros.Include(l => l.Tematica);
             return View(await smartsof_biblioContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace BibliotecaWeb.Controllers
 
             var libro = await _context.Libros
                 .Include(l => l.Tematica)
-                .Include(l => l.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (libro == null)
             {
@@ -50,7 +49,6 @@ namespace BibliotecaWeb.Controllers
         public IActionResult Create()
         {
             ViewData["TematicaId"] = new SelectList(_context.Tematicas, "Id", "Nombre");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id");
             return View();
         }
 
@@ -59,7 +57,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoInterno,Titulo,Autor,Editorial,Disponible,Imagen,TematicaId,UsuarioId,FechaHoraEliminacion,Eliminado")] Libro libro)
+        public async Task<IActionResult> Create([Bind("Id,CodigoInterno,Titulo,Autor,Editorial,Disponible,TematicaId,Eliminado")] Libro libro)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +66,6 @@ namespace BibliotecaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TematicaId"] = new SelectList(_context.Tematicas, "Id", "Nombre", libro.TematicaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", libro.UsuarioId);
             return View(libro);
         }
 
@@ -86,7 +83,6 @@ namespace BibliotecaWeb.Controllers
                 return NotFound();
             }
             ViewData["TematicaId"] = new SelectList(_context.Tematicas, "Id", "Nombre", libro.TematicaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", libro.UsuarioId);
             return View(libro);
         }
 
@@ -95,7 +91,7 @@ namespace BibliotecaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoInterno,Titulo,Autor,Editorial,Disponible,Imagen,TematicaId,UsuarioId,FechaHoraEliminacion,Eliminado")] Libro libro)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoInterno,Titulo,Autor,Editorial,Disponible,TematicaId,Eliminado")] Libro libro)
         {
             if (id != libro.Id)
             {
@@ -123,7 +119,6 @@ namespace BibliotecaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TematicaId"] = new SelectList(_context.Tematicas, "Id", "Nombre", libro.TematicaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", libro.UsuarioId);
             return View(libro);
         }
 
@@ -137,7 +132,6 @@ namespace BibliotecaWeb.Controllers
 
             var libro = await _context.Libros
                 .Include(l => l.Tematica)
-                .Include(l => l.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (libro == null)
             {
