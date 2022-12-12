@@ -54,8 +54,6 @@ namespace BibliotecaWeb.Data
             {
                 entity.HasIndex(e => e.TematicaId, "IX_Libros_TematicaId");
 
-                entity.HasIndex(e => e.UsuarioId, "IX_Libros_UsuarioId");
-
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Autor).HasColumnType("text");
@@ -64,24 +62,16 @@ namespace BibliotecaWeb.Data
 
                 entity.Property(e => e.Editorial).HasColumnType("text");
 
-                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
-
-                entity.Property(e => e.Imagen).HasMaxLength(4000);
-
                 entity.Property(e => e.TematicaId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Titulo).HasColumnType("text");
-
-                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Tematica)
                     .WithMany(p => p.Libros)
                     .HasForeignKey(d => d.TematicaId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(d => d.Usuario)
-                    .WithMany(p => p.Libros)
-                    .HasForeignKey(d => d.UsuarioId);
+                
             });
 
             modelBuilder.Entity<Prestamo>(entity =>
@@ -90,23 +80,15 @@ namespace BibliotecaWeb.Data
 
                 entity.HasIndex(e => e.SocioId, "IX_Prestamos_SocioId");
 
-                entity.HasIndex(e => e.UsuarioId, "IX_Prestamos_UsuarioId");
-
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.FechaEntrega).HasColumnType("datetime");
 
-                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
-
                 entity.Property(e => e.FechaRetiro).HasColumnType("datetime");
-
-                entity.Property(e => e.IdLibro).HasColumnType("int(11)");
 
                 entity.Property(e => e.LibroId).HasColumnType("int(11)");
 
                 entity.Property(e => e.SocioId).HasColumnType("int(11)");
-
-                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Libro)
                     .WithMany(p => p.Prestamos)
@@ -116,14 +98,11 @@ namespace BibliotecaWeb.Data
                     .WithMany(p => p.Prestamos)
                     .HasForeignKey(d => d.SocioId);
 
-                entity.HasOne(d => d.Usuario)
-                    .WithMany(p => p.Prestamos)
-                    .HasForeignKey(d => d.UsuarioId);
+                
             });
 
             modelBuilder.Entity<Socio>(entity =>
             {
-                entity.HasIndex(e => e.UsuarioId, "IX_Socios_UsuarioId");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
@@ -133,36 +112,17 @@ namespace BibliotecaWeb.Data
 
                 entity.Property(e => e.Domicilio).HasColumnType("text");
 
-                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
-
                 entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
 
-                entity.Property(e => e.Imagen).HasMaxLength(4000);
-
                 entity.Property(e => e.Nombre).HasColumnType("text");
-
-                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.Usuario)
-                    .WithMany(p => p.Socios)
-                    .HasForeignKey(d => d.UsuarioId);
             });
 
             modelBuilder.Entity<Tematica>(entity =>
             {
-                entity.HasIndex(e => e.UsuarioId, "IX_Tematicas_UsuarioId");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
-
                 entity.Property(e => e.Nombre).HasColumnType("text");
-
-                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.Usuario)
-                    .WithMany(p => p.Tematicas)
-                    .HasForeignKey(d => d.UsuarioId);
             });
 
             modelBuilder.Entity<Usuario>(entity =>
