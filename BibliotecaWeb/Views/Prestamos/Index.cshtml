@@ -19,13 +19,7 @@
                 @Html.DisplayNameFor(model => model.FechaEntrega)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdLibro)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.LibroDevuelto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaHoraEliminacion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Eliminado)
@@ -35,9 +29,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Socio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
             </th>
             <th></th>
         </tr>
@@ -52,13 +43,7 @@
                 @Html.DisplayFor(modelItem => item.FechaEntrega)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdLibro)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.LibroDevuelto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaHoraEliminacion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Eliminado)
@@ -68,9 +53,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Socio.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
