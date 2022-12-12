@@ -1,4 +1,4 @@
-﻿@model BibliotecaWeb.Models.Socio
+﻿@model BibliotecaWeb.Models.Libro
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,44 +8,38 @@
 
 <h3>Esta seguro que desea eliminar?</h3>
 <div>
-    <h4>Socio</h4>
+    <h4>Libro</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
+            @Html.DisplayNameFor(model => model.CodigoInterno)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
+            @Html.DisplayFor(model => model.CodigoInterno)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.Titulo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.Titulo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dni)
+            @Html.DisplayNameFor(model => model.Autor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dni)
+            @Html.DisplayFor(model => model.Autor)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
+            @Html.DisplayNameFor(model => model.Editorial)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaNacimiento)
+            @Html.DisplayFor(model => model.Editorial)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Domicilio)
+            @Html.DisplayNameFor(model => model.Disponible)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Domicilio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
+            @Html.DisplayFor(model => model.Disponible)
         </dd>
         @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Imagen)
@@ -64,8 +58,14 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Eliminado)
-        </dd>
+        </dd>*@
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tematica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tematica.Nombre)
+        </dd>
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Usuario)
         </dt>
         <dd class = "col-sm-10">

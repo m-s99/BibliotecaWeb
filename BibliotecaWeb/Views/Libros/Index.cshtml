@@ -1,10 +1,10 @@
-﻿@model IEnumerable<BibliotecaWeb.Models.Socio>
+﻿@model IEnumerable<BibliotecaWeb.Models.Libro>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Socios</h1>
+<h1>Libros</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Crear Nuevo</a>
@@ -13,23 +13,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Apellido)
+                @Html.DisplayNameFor(model => model.CodigoInterno) 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayNameFor(model => model.Titulo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dni)
+                @Html.DisplayNameFor(model => model.Autor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaNacimiento)
+                @Html.DisplayNameFor(model => model.Editorial)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Domicilio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Disponible)
+            </th>*@
             @*<th>
                 @Html.DisplayNameFor(model => model.Imagen)
             </th>
@@ -38,8 +35,11 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Eliminado)
-            </th>
+            </th>*@
             <th>
+                @Html.DisplayNameFor(model => model.Tematica)
+            </th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Usuario)
             </th>*@
             <th></th>
@@ -49,32 +49,32 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
+                @Html.DisplayFor(modelItem => item.CodigoInterno)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
+                @Html.DisplayFor(modelItem => item.Titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Dni)
+                @Html.DisplayFor(modelItem => item.Autor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                @Html.DisplayFor(modelItem => item.Editorial)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Domicilio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-           @* <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>*@
-           @* <td>
-                @Html.DisplayFor(modelItem => item.FechaHoraEliminacion)
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Disponible)
             </td>*@
             @*<td>
+                @Html.DisplayFor(modelItem => item.Imagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHoraEliminacion)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Eliminado)
             </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Tematica.Nombre)
+            </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.Usuario.Id)
             </td>*@

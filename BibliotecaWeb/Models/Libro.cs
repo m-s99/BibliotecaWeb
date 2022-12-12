@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BibliotecaWeb.Models
 {
@@ -11,6 +12,7 @@ namespace BibliotecaWeb.Models
         }
 
         public int Id { get; set; }
+        [DisplayName("Codigo")]
         public string CodigoInterno { get; set; } = null!;
         public string Titulo { get; set; } = null!;
         public string Autor { get; set; } = null!;
@@ -22,7 +24,7 @@ namespace BibliotecaWeb.Models
         public DateTime? FechaHoraEliminacion { get; set; }
         public bool Eliminado { get; set; }
 
-        public virtual Tematica Tematica { get; set; } = null!;
+        public virtual Tematica? Tematica { get; set; }
         public virtual Usuario? Usuario { get; set; }
         public virtual ICollection<Prestamo> Prestamos { get; set; }
     }
