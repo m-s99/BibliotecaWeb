@@ -21,7 +21,6 @@ namespace BibliotecaWeb.Data
         public virtual DbSet<Prestamo> Prestamos { get; set; } = null!;
         public virtual DbSet<Socio> Socios { get; set; } = null!;
         public virtual DbSet<Tematica> Tematicas { get; set; } = null!;
-        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -112,30 +111,7 @@ namespace BibliotecaWeb.Data
                 entity.Property(e => e.Nombre).HasColumnType("text");
             });
 
-            modelBuilder.Entity<Usuario>(entity =>
-            {
-                entity.HasIndex(e => e.UsuarioId1, "IX_Usuarios_UsuarioId1");
-
-                entity.Property(e => e.Id).HasColumnType("int(11)");
-
-                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
-
-                entity.Property(e => e.Nombre).HasColumnType("text");
-
-                entity.Property(e => e.Password).HasColumnType("text");
-
-                entity.Property(e => e.TipoUsuario).HasColumnType("int(11)");
-
-                entity.Property(e => e.User).HasColumnType("text");
-
-                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
-
-                entity.Property(e => e.UsuarioId1).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.UsuarioId1Navigation)
-                    .WithMany(p => p.InverseUsuarioId1Navigation)
-                    .HasForeignKey(d => d.UsuarioId1);
-            });
+            
 
             OnModelCreatingPartial(modelBuilder);
         }
