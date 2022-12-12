@@ -12,13 +12,14 @@ namespace BibliotecaWeb.Models
         }
 
         public int Id { get; set; }
-        [DisplayName("Codigo")]
+        [DisplayName("Código")]
         public string CodigoInterno { get; set; } = null!;
         public string Titulo { get; set; } = null!;
         public string Autor { get; set; } = null!;
         public string Editorial { get; set; } = null!;
         public bool Disponible { get; set; }
         public byte[]? Imagen { get; set; }
+        [DisplayName("Temática")]
         public int TematicaId { get; set; }
         public int? UsuarioId { get; set; }
         public DateTime? FechaHoraEliminacion { get; set; }
