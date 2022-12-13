@@ -10,85 +10,90 @@ using BibliotecaWeb.Models;
 
 namespace BibliotecaWeb.Controllers
 {
-    public class TematicasController : Controller
+    public class UsuariosController : Controller
     {
         private readonly smartsof_biblioContext _context;
 
-        public TematicasController(smartsof_biblioContext context)
+        public UsuariosController(smartsof_biblioContext context)
         {
             _context = context;
         }
 
-        // GET: Tematicas
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Tematicas.ToListAsync());
+            var smartsof_biblioContext = _context.Usuarios.Include(u => u.UsuarioId1Navigation);
+            return View(await smartsof_biblioContext.ToListAsync());
         }
 
-        // GET: Tematicas/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var usuario = await _context.Usuarios
+                .Include(u => u.UsuarioId1Navigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(usuario);
         }
 
-        // GET: Tematicas/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
+            ViewData["UsuarioId1"] = new SelectList(_context.Usuarios, "Id", "Id");
             return View();
         }
 
-        // POST: Tematicas/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,User,Password,TipoUsuario,UsuarioId,UsuarioId1,FechaHoraEliminacion,Eliminado")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tematica);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            ViewData["UsuarioId1"] = new SelectList(_context.Usuarios, "Id", "Id", usuario.UsuarioId1);
+            return View(usuario);
         }
 
-        // GET: Tematicas/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica == null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(tematica);
+            ViewData["UsuarioId1"] = new SelectList(_context.Usuarios, "Id", "Id", usuario.UsuarioId1);
+            return View(usuario);
         }
 
-        // POST: Tematicas/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,User,Password,TipoUsuario,UsuarioId,UsuarioId1,FechaHoraEliminacion,Eliminado")] Usuario usuario)
         {
-            if (id != tematica.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace BibliotecaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(tematica);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TematicaExists(tematica.Id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -113,49 +118,51 @@ namespace BibliotecaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            ViewData["UsuarioId1"] = new SelectList(_context.Usuarios, "Id", "Id", usuario.UsuarioId1);
+            return View(usuario);
         }
 
-        // GET: Tematicas/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var usuario = await _context.Usuarios
+                .Include(u => u.UsuarioId1Navigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(usuario);
         }
 
-        // POST: Tematicas/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Tematicas == null)
+            if (_context.Usuarios == null)
             {
-                return Problem("Entity set 'smartsof_biblioContext.Tematicas'  is null.");
+                return Problem("Entity set 'smartsof_biblioContext.Usuarios'  is null.");
             }
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica != null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Tematicas.Remove(tematica);
+                _context.Usuarios.Remove(usuario);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TematicaExists(int id)
+        private bool UsuarioExists(int id)
         {
-          return _context.Tematicas.Any(e => e.Id == id);
+          return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

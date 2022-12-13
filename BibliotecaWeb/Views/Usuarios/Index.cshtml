@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BibliotecaWeb.Models.Socio>
+﻿@model IEnumerable<BibliotecaWeb.Models.Usuario>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Apellido)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dni)
+                @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaNacimiento)
+                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Domicilio)
+                @Html.DisplayNameFor(model => model.TipoUsuario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                @Html.DisplayNameFor(model => model.UsuarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHoraEliminacion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Eliminado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioId1Navigation)
             </th>
             <th></th>
         </tr>
@@ -40,25 +43,28 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Dni)
+                @Html.DisplayFor(modelItem => item.User)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Domicilio)
+                @Html.DisplayFor(modelItem => item.TipoUsuario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
+                @Html.DisplayFor(modelItem => item.UsuarioId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHoraEliminacion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Eliminado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioId1Navigation.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

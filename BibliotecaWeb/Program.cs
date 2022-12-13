@@ -1,8 +1,9 @@
-using BibliotecaWeb.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
+using BibliotecaWeb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

@@ -17,10 +17,14 @@ namespace BibliotecaWeb.Data
         {
         }
 
+        public virtual DbSet<Autore> Autores { get; set; } = null!;
+        public virtual DbSet<Editoriale> Editoriales { get; set; } = null!;
+        public virtual DbSet<EfmigrationsHistory> EfmigrationsHistories { get; set; } = null!;
         public virtual DbSet<Libro> Libros { get; set; } = null!;
         public virtual DbSet<Prestamo> Prestamos { get; set; } = null!;
         public virtual DbSet<Socio> Socios { get; set; } = null!;
         public virtual DbSet<Tematica> Tematicas { get; set; } = null!;
+        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,28 +40,68 @@ namespace BibliotecaWeb.Data
             modelBuilder.UseCollation("latin1_swedish_ci")
                 .HasCharSet("latin1");
 
+            modelBuilder.Entity<Autore>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnType("int(255)");
+
+                entity.Property(e => e.Nombre).HasColumnType("text");
+            });
+
+            modelBuilder.Entity<Editoriale>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.Nombre).HasColumnType("text");
+            });
+
+            modelBuilder.Entity<EfmigrationsHistory>(entity =>
+            {
+                entity.HasKey(e => e.MigrationId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("__EFMigrationsHistory");
+
+                entity.Property(e => e.MigrationId).HasMaxLength(150);
+
+                entity.Property(e => e.ProductVersion).HasMaxLength(32);
+            });
+
             modelBuilder.Entity<Libro>(entity =>
             {
+                entity.HasIndex(e => e.AutorId, "FK_Libros_Autores");
+
+                entity.HasIndex(e => e.EditorialId, "FK_Libros_Editoriales");
+
                 entity.HasIndex(e => e.TematicaId, "IX_Libros_TematicaId");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.Autor).HasColumnType("text");
+                entity.Property(e => e.AutorId).HasColumnType("int(11)");
 
                 entity.Property(e => e.CodigoInterno).HasColumnType("text");
 
-                entity.Property(e => e.Editorial).HasColumnType("text");
+                entity.Property(e => e.EditorialId).HasColumnType("int(11)");
 
                 entity.Property(e => e.TematicaId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Titulo).HasColumnType("text");
 
+                entity.HasOne(d => d.Autor)
+                    .WithMany(p => p.Libros)
+                    .HasForeignKey(d => d.AutorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Libros_Autores");
+
+                entity.HasOne(d => d.Editorial)
+                    .WithMany(p => p.Libros)
+                    .HasForeignKey(d => d.EditorialId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Libros_Editoriales");
+
                 entity.HasOne(d => d.Tematica)
                     .WithMany(p => p.Libros)
                     .HasForeignKey(d => d.TematicaId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
-
-                
             });
 
             modelBuilder.Entity<Prestamo>(entity =>
@@ -78,18 +122,16 @@ namespace BibliotecaWeb.Data
 
                 entity.HasOne(d => d.Libro)
                     .WithMany(p => p.Prestamos)
-                    .HasForeignKey(d => d.LibroId);
+                    .HasForeignKey(d => d.LibroId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.Socio)
                     .WithMany(p => p.Prestamos)
                     .HasForeignKey(d => d.SocioId);
-
-                
             });
 
             modelBuilder.Entity<Socio>(entity =>
             {
-
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Apellido).HasColumnType("text");
@@ -105,13 +147,35 @@ namespace BibliotecaWeb.Data
 
             modelBuilder.Entity<Tematica>(entity =>
             {
-
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre).HasColumnType("text");
             });
 
-            
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasIndex(e => e.UsuarioId1, "IX_Usuarios_UsuarioId1");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.FechaHoraEliminacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombre).HasColumnType("text");
+
+                entity.Property(e => e.Password).HasColumnType("text");
+
+                entity.Property(e => e.TipoUsuario).HasColumnType("int(11)");
+
+                entity.Property(e => e.User).HasColumnType("text");
+
+                entity.Property(e => e.UsuarioId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UsuarioId1).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.UsuarioId1Navigation)
+                    .WithMany(p => p.InverseUsuarioId1Navigation)
+                    .HasForeignKey(d => d.UsuarioId1);
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

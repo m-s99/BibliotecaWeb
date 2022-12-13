@@ -10,85 +10,85 @@ using BibliotecaWeb.Models;
 
 namespace BibliotecaWeb.Controllers
 {
-    public class TematicasController : Controller
+    public class AutoresController : Controller
     {
         private readonly smartsof_biblioContext _context;
 
-        public TematicasController(smartsof_biblioContext context)
+        public AutoresController(smartsof_biblioContext context)
         {
             _context = context;
         }
 
-        // GET: Tematicas
+        // GET: Autores
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Tematicas.ToListAsync());
+              return View(await _context.Autores.ToListAsync());
         }
 
-        // GET: Tematicas/Details/5
+        // GET: Autores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Autores == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var autore = await _context.Autores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (autore == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(autore);
         }
 
-        // GET: Tematicas/Create
+        // GET: Autores/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tematicas/Create
+        // POST: Autores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Autore autore)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tematica);
+                _context.Add(autore);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            return View(autore);
         }
 
-        // GET: Tematicas/Edit/5
+        // GET: Autores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Autores == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica == null)
+            var autore = await _context.Autores.FindAsync(id);
+            if (autore == null)
             {
                 return NotFound();
             }
-            return View(tematica);
+            return View(autore);
         }
 
-        // POST: Tematicas/Edit/5
+        // POST: Autores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Autore autore)
         {
-            if (id != tematica.Id)
+            if (id != autore.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace BibliotecaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(tematica);
+                    _context.Update(autore);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TematicaExists(tematica.Id))
+                    if (!AutoreExists(autore.Id))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace BibliotecaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            return View(autore);
         }
 
-        // GET: Tematicas/Delete/5
+        // GET: Autores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Autores == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var autore = await _context.Autores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (autore == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(autore);
         }
 
-        // POST: Tematicas/Delete/5
+        // POST: Autores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Tematicas == null)
+            if (_context.Autores == null)
             {
-                return Problem("Entity set 'smartsof_biblioContext.Tematicas'  is null.");
+                return Problem("Entity set 'smartsof_biblioContext.Autores'  is null.");
             }
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica != null)
+            var autore = await _context.Autores.FindAsync(id);
+            if (autore != null)
             {
-                _context.Tematicas.Remove(tematica);
+                _context.Autores.Remove(autore);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TematicaExists(int id)
+        private bool AutoreExists(int id)
         {
-          return _context.Tematicas.Any(e => e.Id == id);
+          return _context.Autores.Any(e => e.Id == id);
         }
     }
 }

@@ -22,8 +22,7 @@ namespace BibliotecaWeb.Controllers
         // GET: Socios
         public async Task<IActionResult> Index()
         {
-            var smartsof_biblioContext = _context.Socios;
-            return View(await smartsof_biblioContext.ToListAsync());
+              return View(await _context.Socios.ToListAsync());
         }
 
         // GET: Socios/Details/5

@@ -10,85 +10,85 @@ using BibliotecaWeb.Models;
 
 namespace BibliotecaWeb.Controllers
 {
-    public class TematicasController : Controller
+    public class EditorialesController : Controller
     {
         private readonly smartsof_biblioContext _context;
 
-        public TematicasController(smartsof_biblioContext context)
+        public EditorialesController(smartsof_biblioContext context)
         {
             _context = context;
         }
 
-        // GET: Tematicas
+        // GET: Editoriales
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Tematicas.ToListAsync());
+              return View(await _context.Editoriales.ToListAsync());
         }
 
-        // GET: Tematicas/Details/5
+        // GET: Editoriales/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Editoriales == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var editoriale = await _context.Editoriales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (editoriale == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(editoriale);
         }
 
-        // GET: Tematicas/Create
+        // GET: Editoriales/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tematicas/Create
+        // POST: Editoriales/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Eliminado")] Editoriale editoriale)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tematica);
+                _context.Add(editoriale);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            return View(editoriale);
         }
 
-        // GET: Tematicas/Edit/5
+        // GET: Editoriales/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Editoriales == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica == null)
+            var editoriale = await _context.Editoriales.FindAsync(id);
+            if (editoriale == null)
             {
                 return NotFound();
             }
-            return View(tematica);
+            return View(editoriale);
         }
 
-        // POST: Tematicas/Edit/5
+        // POST: Editoriales/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Tematica tematica)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Eliminado")] Editoriale editoriale)
         {
-            if (id != tematica.Id)
+            if (id != editoriale.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace BibliotecaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(tematica);
+                    _context.Update(editoriale);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TematicaExists(tematica.Id))
+                    if (!EditorialeExists(editoriale.Id))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace BibliotecaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tematica);
+            return View(editoriale);
         }
 
-        // GET: Tematicas/Delete/5
+        // GET: Editoriales/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Tematicas == null)
+            if (id == null || _context.Editoriales == null)
             {
                 return NotFound();
             }
 
-            var tematica = await _context.Tematicas
+            var editoriale = await _context.Editoriales
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tematica == null)
+            if (editoriale == null)
             {
                 return NotFound();
             }
 
-            return View(tematica);
+            return View(editoriale);
         }
 
-        // POST: Tematicas/Delete/5
+        // POST: Editoriales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Tematicas == null)
+            if (_context.Editoriales == null)
             {
-                return Problem("Entity set 'smartsof_biblioContext.Tematicas'  is null.");
+                return Problem("Entity set 'smartsof_biblioContext.Editoriales'  is null.");
             }
-            var tematica = await _context.Tematicas.FindAsync(id);
-            if (tematica != null)
+            var editoriale = await _context.Editoriales.FindAsync(id);
+            if (editoriale != null)
             {
-                _context.Tematicas.Remove(tematica);
+                _context.Editoriales.Remove(editoriale);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TematicaExists(int id)
+        private bool EditorialeExists(int id)
         {
-          return _context.Tematicas.Any(e => e.Id == id);
+          return _context.Editoriales.Any(e => e.Id == id);
         }
     }
 }
