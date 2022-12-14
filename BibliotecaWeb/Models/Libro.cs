@@ -19,9 +19,9 @@ namespace BibliotecaWeb.Models
         public bool Disponible { get; set; }
         public bool Eliminado { get; set; }
 
-        public virtual Autore Autor { get; set; } = null!;
-        public virtual Editoriale Editorial { get; set; } = null!;
-        public virtual Tematica Tematica { get; set; } = null!;
+        public virtual Autore? Autor { get; set; }
+        public virtual Editoriale? Editorial { get; set; }
+        public virtual Tematica? Tematica { get; set; }
         public virtual ICollection<Prestamo> Prestamos { get; set; }
     }
 }
